@@ -2,9 +2,11 @@ const express = require("express");
 const Transcoder = require("stream-transcoder");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-inspect = require("util").inspect;
+const inspect = require("util").inspect;
 const Busboy = require("busboy");
 var app = express();
+
+const a: string = "gerreg";
 
 app.use(cors());
 app.use(bodyParser.json());
