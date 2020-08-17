@@ -1,12 +1,13 @@
-const express = require("express");
+// const express = require("express");
+import express from "express";
+import ffmpeg from "fluent-ffmpeg";
 const Transcoder = require("stream-transcoder");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const inspect = require("util").inspect;
 const Busboy = require("busboy");
-var app = express();
 
-const a: string = "gerreg";
+var app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -26,7 +27,17 @@ app.post("/", function (req, res) {
         ", mimetype: " +
         mimetype
     );
-    file.pipe(res);
+    res.setHeader("content-type", "video/mp4");
+
+    ffmpeg("./media/small.webm")
+      .videoCodec("libx264")
+      .format("mp4")
+      .on("error", function (err, stdout, stderr) {
+        console.log(err.message); //this will likely return "code=1" not really useful
+        console.log("stdout:\n" + stdout);
+        console.log("stderr:\n" + stderr); //this will contain more detailed debugging info
+      })
+      .pipe(res, { end: true });
   });
   busboy.on("field", function (
     fieldname,
@@ -40,13 +51,10 @@ app.post("/", function (req, res) {
   });
   busboy.on("finish", function () {
     console.log("Done parsing form!");
-    // res.writeHead(303, { Connection: "close", Location: "/" });
-    // res.send('hello')
-    res.end();
   });
   req.pipe(busboy);
 });
 
-app.get("/", (req, res) => res.send("17012"));
+app.get("/", (req, res) => res.send("17012 ;p"));
 
-app.listen(3000);
+app.listen(8080);

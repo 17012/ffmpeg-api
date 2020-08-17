@@ -4,9 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --inspect=5858 -r ts-node/register ./src/index.ts",
+    "start": "node --inspect=5858 -r ts-node/register ./server.ts",
     "start:watch": "nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:8080 -d dragonfly161518/convert-media-api",
+    "build:dev": "docker build -t dragonfly161518/convert-media-api .",
+    "go": "npm run build:dev && npm run start:dev && docker ps"
   },
   "keywords": [],
   "author": "",
@@ -17,10 +20,12 @@
     "busboy": "^0.3.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
     "stream-transcoder": "0.0.5"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
+    "@types/fluent-ffmpeg": "^2.1.14",
     "@types/node": "^14.0.27",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
@@ -35,7 +40,7 @@
       "node_modules"
     ],
     "watch": [
-      "src"
+      "./"
     ],
     "exec": "npm start",
     "ext": "ts"
