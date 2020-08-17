@@ -1,6 +1,8 @@
 // const express = require("express");
 import express from "express";
 import ffmpeg from "fluent-ffmpeg";
+import https from "https";
+import fs from "fs";
 const Transcoder = require("stream-transcoder");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -59,4 +61,18 @@ app.post("/", function (req, res) {
 
 app.get("/", (req, res) => res.send("17012 ;p"));
 
-app.listen(8080);
+// app.listen(8080);
+
+https
+  .createServer(
+    {
+      key: fs.readFileSync("server.key"),
+      cert: fs.readFileSync("server.cert"),
+    },
+    app
+  )
+  .listen(8080, function () {
+    console.log(
+      "Example app listening on port 8080! Go to https://localhost:8080/"
+    );
+  });
