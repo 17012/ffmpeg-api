@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node --inspect=5858 -r ts-node/register ./server.ts",
+    "start": "docker run --rm -v $(pwd):/app -p 17012:443 -d dragonfly161518/ffmpeg-api",
     "start:watch": "nodemon",
-    "build": "tsc",
-    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:443 -d dragonfly161518/convert-media-api",
-    "build:dev": "docker build -t dragonfly161518/convert-media-api .",
+    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:443 -d dragonfly161518/ffmpeg-api-dev",
+    "start:prod": "node ./dist/server.js",
+    "build": "tsc -p .",
+    "build:dev": "docker build --target development -t dragonfly161518/ffmpeg-api-dev .",
+    "build:prod": "docker build -t dragonfly161518/ffmpeg-api .",
     "go": "npm run build:dev && npm run start:dev && docker ps"
   },
   "keywords": [],

@@ -1,22 +1,28 @@
-FROM jrottenberg/ffmpeg:4.1-alpine
-
+FROM jrottenberg/ffmpeg:4.1-alpine as base
 RUN apk add --update nodejs npm
-# ADD setup-ffmpeg.sh /root
-# Create app directory
-
 WORKDIR /app
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-RUN npm install -g nodemon
-# where available (npm@5+)
+
+
+FROM base as development
 COPY package*.json ./
+RUN npm install -g nodemon
 RUN npm install
-# If you are building your code for production
-# RUN npm install --only=production
-# Bundle app source
 COPY . .
 EXPOSE 443
+# remove old from ffmpeg
+ENTRYPOINT [] 
+CMD ["npm","run","start:watch"]
 
+FROM base as build
+COPY package*.json ./
+RUN npm install
+COPY . ./
+RUN npm run build
+
+FROM base as production
+ENV NODE_ENV=production
+COPY --from=build /app/package.json /app/package-lock.json ./
+COPY --from=build /app/dist ./dist
+RUN npm install --production
 ENTRYPOINT []
-
-CMD [ "nodemon" ]
+CMD [ "npm","run","start:prod" ]
