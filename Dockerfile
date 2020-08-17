@@ -8,7 +8,7 @@ COPY package*.json ./
 RUN npm install -g nodemon
 RUN npm install
 COPY . .
-EXPOSE 443
+EXPOSE 17012
 # remove old from ffmpeg
 ENTRYPOINT [] 
 CMD ["npm","run","start:watch"]

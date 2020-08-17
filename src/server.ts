@@ -60,7 +60,8 @@ app.post("/", function (req, res) {
 
 app.get("/", (req, res) => res.send("17012 ;p"));
 
-// app.listen(8080);
+const port = process.env.PORT || 17012;
+
 if (process.env.NODE_ENV === "development") {
   https
     .createServer(
@@ -70,11 +71,11 @@ if (process.env.NODE_ENV === "development") {
       },
       app
     )
-    .listen(443, function () {
+    .listen(port, function () {
       console.log(
-        "Example app listening on port 443! Go to https://localhost:443/"
+        `Example app listening on port ${port}! Go to https://localhost:${port}/`
       );
     });
 } else {
-  app.listen(443);
+  app.listen(port);
 }
