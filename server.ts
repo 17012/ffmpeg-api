@@ -29,9 +29,11 @@ app.post("/", function (req, res) {
     );
     res.setHeader("content-type", "video/mp4");
 
-    ffmpeg("./media/small.webm")
+    ffmpeg(file)
       .videoCodec("libx264")
+      .audioCodec("libfdk_aac")
       .format("mp4")
+      .outputOptions("-movflags frag_keyframe+empty_moov")
       .on("error", function (err, stdout, stderr) {
         console.log(err.message); //this will likely return "code=1" not really useful
         console.log("stdout:\n" + stdout);
