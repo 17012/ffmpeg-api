@@ -7,7 +7,7 @@
     "start": "node --inspect=5858 -r ts-node/register ./server.ts",
     "start:watch": "nodemon",
     "build": "tsc",
-    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:8080 -d dragonfly161518/convert-media-api",
+    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:443 -d dragonfly161518/convert-media-api",
     "build:dev": "docker build -t dragonfly161518/convert-media-api .",
     "go": "npm run build:dev && npm run start:dev && docker ps"
   },

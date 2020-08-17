@@ -1,4 +1,4 @@
-// const express = require("express");
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 import express from "express";
 import ffmpeg from "fluent-ffmpeg";
 import https from "https";
@@ -8,7 +8,6 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 const inspect = require("util").inspect;
 const Busboy = require("busboy");
-
 var app = express();
 
 app.use(cors());
@@ -71,8 +70,8 @@ https
     },
     app
   )
-  .listen(8080, function () {
+  .listen(443, function () {
     console.log(
-      "Example app listening on port 8080! Go to https://localhost:8080/"
+      "Example app listening on port 443! Go to https://localhost:443/"
     );
   });
