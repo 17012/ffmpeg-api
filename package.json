@@ -2,7 +2,7 @@
   "name": "convert-media-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/server.js",
   "scripts": {
     "start": "docker run --rm -v $(pwd):/app -p 17012:443 -d dragonfly161518/ffmpeg-api",
     "start:watch": "nodemon",

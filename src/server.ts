@@ -61,17 +61,20 @@ app.post("/", function (req, res) {
 app.get("/", (req, res) => res.send("17012 ;p"));
 
 // app.listen(8080);
-
-https
-  .createServer(
-    {
-      key: fs.readFileSync("server.key"),
-      cert: fs.readFileSync("server.cert"),
-    },
-    app
-  )
-  .listen(443, function () {
-    console.log(
-      "Example app listening on port 443! Go to https://localhost:443/"
-    );
-  });
+if (process.env.NODE_ENV === "development") {
+  https
+    .createServer(
+      {
+        key: fs.readFileSync("server.key"),
+        cert: fs.readFileSync("server.cert"),
+      },
+      app
+    )
+    .listen(443, function () {
+      console.log(
+        "Example app listening on port 443! Go to https://localhost:443/"
+      );
+    });
+} else {
+  app.listen(443);
+}
