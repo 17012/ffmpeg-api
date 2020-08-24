@@ -35,16 +35,15 @@
     "typescript": "^3.9.7"
   },
   "nodemonConfig": {
+    "verbose": true,
     "ignore": [
-      "**/*.test.ts",
-      "**/*.spec.ts",
-      ".git",
-      "node_modules"
+      "src/**/*.spec.ts"
     ],
     "watch": [
-      "./"
+      "src/**/*.ts"
     ],
-    "exec": "npm start",
-    "ext": "ts"
+    "execMap": {
+      "ts": "node --inspect=0.0.0.0:9229 --nolazy -r ts-node/register"
+    }
   }
 }
