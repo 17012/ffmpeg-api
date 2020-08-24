@@ -62,20 +62,6 @@ app.get("/", (req, res) => res.send("17012 ;p"));
 
 const port = process.env.PORT || 17012;
 
-if (process.env.NODE_ENV === "development") {
-  https
-    .createServer(
-      {
-        key: fs.readFileSync("server.key"),
-        cert: fs.readFileSync("server.cert"),
-      },
-      app
-    )
-    .listen(port, function () {
-      console.log(
-        `Example app listening on port ${port}! Go to https://localhost:${port}/`
-      );
-    });
-} else {
-  app.listen(port);
-}
+app.listen(port, () => {
+  console.log(`App running on port ${port} with ${process.env.NODE_ENV} env`);
+});
