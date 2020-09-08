@@ -6,7 +6,7 @@
   "scripts": {
     "start": "docker run --rm -v $(pwd):/app -p 17012:443 -d dragonfly161518/ffmpeg-api",
     "start:watch": "nodemon",
-    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:443 -d dragonfly161518/ffmpeg-api-dev",
+    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:443 dragonfly161518/ffmpeg-api-dev",
     "start:prod": "node ./dist/server.js",
     "build": "tsc -p .",
     "build:dev": "docker build --target development -t dragonfly161518/ffmpeg-api-dev .",
