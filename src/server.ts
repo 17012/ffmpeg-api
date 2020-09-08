@@ -28,19 +28,24 @@ app.post("/", function (req, res) {
         ", mimetype: " +
         mimetype
     );
-    res.setHeader("content-type", "video/mp4");
 
-    ffmpeg(file)
-      .videoCodec("libx264")
-      .audioCodec("libfdk_aac")
-      .format("mp4")
-      .outputOptions("-movflags frag_keyframe+empty_moov")
-      .on("error", function (err, stdout, stderr) {
-        console.log(err.message); //this will likely return "code=1" not really useful
-        console.log("stdout:\n" + stdout);
-        console.log("stderr:\n" + stderr); //this will contain more detailed debugging info
-      })
-      .pipe(res, { end: true });
+    const writeStream = fs.createWriteStream(`./output${mimetype}`);
+    file.pipe(writeStream);
+    return res.status(200);
+
+    // res.setHeader("content-type", "video/mp4");
+
+    // ffmpeg(file)
+    //   .videoCodec("libx264")
+    //   .audioCodec("libfdk_aac")
+    //   .format("mp4")
+    //   .outputOptions("-movflags frag_keyframe+empty_moov")
+    //   .on("error", function (err, stdout, stderr) {
+    //     console.log(err.message); //this will likely return "code=1" not really useful
+    //     console.log("stdout:\n" + stdout);
+    //     console.log("stderr:\n" + stderr); //this will contain more detailed debugging info
+    //   })
+    //   .pipe(res, { end: true });
   });
   busboy.on("field", function (
     fieldname,
