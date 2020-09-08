@@ -50,7 +50,7 @@ app.post("/", function (req, res) {
     encoding,
     mimetype
   ) {
-    console.log("Field [" + fieldname + "]: value: " + val);
+    console.log("Field [" + fieldname + "]: value: " + inspect(val));
   });
   busboy.on("finish", function () {
     console.log("Done parsing form!");

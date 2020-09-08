@@ -5,7 +5,7 @@
   "main": "./dist/server.js",
   "scripts": {
     "start:watch": "nodemon --watch src/**/* -e ts,json --exec node --inspect=0.0.0.0:9229 -r ts-node/register src/server.ts",
-    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:443 dragonfly161518/ffmpeg-api-dev",
+    "start:dev": "docker run --rm -v $(pwd):/app -p 17012:17012 -p 9229:9229 dragonfly161518/ffmpeg-api-dev",
     "start:prod": "node ./dist/server.js",
     "build": "tsc -p .",
     "build:dev": "docker build --target development -t dragonfly161518/ffmpeg-api-dev .",
